@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -Eeu
+set -o posix
+set -o pipefail
+
+declare -r actinium_ng_log="/vagrant/guest_logs/Actinium-ng.log"
+
+declare -r exe_name="$0"
+echo_log() {
+    local log_target="$actinium_ng_log"
+    echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] $exe_name: $@" >> $log_target
+}
+
+function error {
+    echo "$1" 1>&2
+    exit 1
+}
+
+set -x
+echo_log "starting Actiniumd"
+~/Actiniumd
+echo "Sleeping a while to let Actiniumd get going..."
+sleep 5

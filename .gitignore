@@ -1,0 +1,11 @@
+# Vagrant files
+.vagrant*
+guest_logs/
+guest_staging/
+Vagrantfile-private-aws
+Actinium-ng
+
+# misc
+.DS_Store
+.idea/
+*.log

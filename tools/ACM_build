@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+usage="$(basename "$0") [-s] [-g] [t] - build Actinium-ng from source
+
+where:
+    -h show this (h)elp text
+    -s re(s)ync code from host machine to VM
+    -g re(g)enerate (ie run autogen and configure again)
+    -t test the newly built Actinium"
+
+function error
+{
+    echo "$1" 1>&2
+    exit 1
+}
+
+coin=''
+while getopts 'sgh' flag; do
+  case "${flag}" in
+    h) echo "$usage"
+       exit
+       ;;
+    s) resync=true ;;
+    g) regen=true ;;
+    t) test=true ;;
+    *) error "Unexpected option" ;;
+  esac
+done
+
+if [ "$resync" = true ]; then
+  ACM_resync
+fi
+
+cd ~/Actinium-ng
+
+if [ "$regen" = true ]; then
+  ./autogen.sh && ./configure --disable-tests --disable-bench --with-gui=qt5 --disable-shared LIBS="-lcap -lseccomp"
+fi
+
+make -j5 && sudo make install
+
+if [ "$test" = true ]; then
+  ACM_test
+fi

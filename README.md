@@ -1,6 +1,6 @@
 # acm-dev
 
-Virtual machine configuration for development environment for [bitcoin](https://github.com/Actinium-project/Actinium-ng).
+Virtual machine configuration for development environment for [Actinium](https://github.com/Actinium-project/Actinium-ng).
 
 This vagrant configuration can be used to provision a virtual machine locally (using Virtualbox) or remotely on AWS.
 
